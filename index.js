@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const { analyze, classify } = require("./lib/sentiment")();
 
+const fileName = Math.random().toString(36).substr(2, 9) + '.json';
+
 prompt.start();
 
 prompt.get(['phrase'], (err, result) => {
@@ -26,9 +28,6 @@ prompt.get(['phrase'], (err, result) => {
     negative,
     calculation
   };
-
-  const fileName = Math.random().toString(36).substr(2, 9) + '.json';
-  console.log(fileName);
 
   fs.writeFile(`./results/${fileName}`, JSON.stringify(jsonData), (err) => {
     if (err) {
