@@ -27,7 +27,8 @@ prompt.get(['phrase'], (err, result) => {
     calculation
   };
 
-  const fileName = '_' + Math.random().toString(36).substr(2, 9) + '.json';
+  const fileName = Math.random().toString(36).substr(2, 9) + '.json';
+  console.log(fileName);
 
   fs.writeFile(`./results/${fileName}`, JSON.stringify(jsonData), (err) => {
     if (err) {
