@@ -1,7 +1,7 @@
 const prompt = require('prompt');
 const fs = require('fs');
 
-const { analyze, classify } = require("./sentiment")();
+const { analyze, classify } = require("./lib/sentiment")();
 
 prompt.start();
 
@@ -27,9 +27,9 @@ prompt.get(['phrase'], (err, result) => {
     calculation
   };
 
-  console.log(jsonData)
+  const fileName = '_' + Math.random().toString(36).substr(2, 9) + '.json';
 
-  fs.writeFile("results.json", JSON.stringify(jsonData), function(err) {
+  fs.writeFile(`./results/${fileName}`, JSON.stringify(jsonData), (err) => {
     if (err) {
       console.log(err);
     }
