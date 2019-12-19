@@ -1,16 +1,19 @@
-const prompt = require('prompt');
-const fs = require('fs');
+const prompt = require("prompt");
+const fs = require("fs");
 
-const { analyze, classify } = require("./lib/sentiment")();
+const { analyze } = require("./lib/sentiment")();
 
-const fileName = Math.random().toString(36).substr(2, 9) + '.json';
+const fileName =
+  Math.random()
+    .toString(36)
+    .substr(2, 9) + ".json";
 
 prompt.start();
 
-prompt.get(['phrase'], (err, result) => {
+prompt.get(["phrase"], (err, result) => {
   const {
     wordCount,
-    score,
+    totalScore,
     comparative,
     unknown,
     positive,
@@ -18,10 +21,10 @@ prompt.get(['phrase'], (err, result) => {
     calculation
   } = analyze(result.phrase);
 
-  const jsonData ={
-    classification: classify(score),
+  const jsonData = {
+    text: result.phrase,
     wordCount,
-    score,
+    totalScore,
     comparative,
     unknown,
     positive,
@@ -29,10 +32,9 @@ prompt.get(['phrase'], (err, result) => {
     calculation
   };
 
-  fs.writeFile(`./results/${fileName}`, JSON.stringify(jsonData), (err) => {
+  fs.writeFile(`./results/${fileName}`, JSON.stringify(jsonData), err => {
     if (err) {
       console.log(err);
     }
   });
-
-}); 
+});
